@@ -16,13 +16,11 @@
 </div>
 
 <meta name="apple-mobile-web-app-capable" content="yes">
-
 <body style='margin : 0px; overflow: hidden;'>
 <a-scene embedded arjs="debugUIEnabled: false; patternRatio: 0.90" vr-mode-ui="enabled: false">   
 <a-marker preset='custom' type='pattern' url='playqrch.patt'>
 <video style="opacity: 1;" id="mivideo" crossOrigin="anonymous" playsinline webkitplaysinline autoplay loop controls muted="false" src="mbe.mp4"></video>
-<a-video material="shader: chromakey; src: #mivideo; color: 0.49 0.85 0.34" src="#mivideo" position="0 0 0" scale="3 3 3" rotation="270 0 0" ></a-video>
-	<!--color: 0.49 0.85 0.34 corresponde al verde basico de canva-->
+<a-video material="shader: chromakey; src: #mivideo; color: 0.1 0.9 0.2" src="#mivideo" position="0 0 0" scale="3 3 3" rotation="270 0 0" ></a-video>
 	<!--https://github.com/nikolaiwarner/aframe-chromakey-material -->
 	<!--
 	<a-plane 
@@ -31,7 +29,6 @@
         scale="15 25 15"
 	></a-plane>
 	-->
-	
 <script> 
 	var m = document.querySelector("a-marker")
 	m.addEventListener("markerFound", (e)=>{
