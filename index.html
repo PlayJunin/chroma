@@ -1,0 +1,100 @@
+<!-- Mbe 13/10/21 --> 
+<!-- Augmented Reality on the Web with Chroma key and custom pattern --> 
+<html>
+<head>
+	<script src="./assets/js/aframe.min.js"></script>
+	<script src="./assets/js/aframe-ar.js"></script>
+	<script src="./assets/js/aframe-extras.loaders.min.js"></script>
+	<script src="./assets/js/aframe-chromakey-material.min.js"></script>
+
+	<meta charset="utf-8">
+	<meta name="description" content="AR Aframe ChromaKey">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta http-equiv="Feature-Policy" content="camera '*'" /> 
+	<!-- 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> esta linea hace que el celu use la camara de zoom
+	-->
+</head>
+
+<title>AR.JS-AFrame-ChromaKey</title>
+	
+<style>
+	.button {
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	background-color: transparent;
+	border: none;
+	color: white;
+	padding: 7px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	margin: 4px 2px;
+	crusor: pointer;
+	bordder-radius: 12px;
+	border: 2px solid rgba(9, 148, 28, 0.541);
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	}
+	.wrap {
+	border: solid 1px #CCC;
+	padding: 10px;
+	text-align: center;
+	}
+	#output {
+	border: solid 2px #CCC;
+	}
+	.button {
+	border: solid 2px #CCC;
+	}
+</style>
+
+<!--
+-->
+
+<body style='margin : 0px; overflow: hidden;'>
+	<div style='position: fixed; top: 30px; width:100%; text-align: center; Z-index: 100'>
+		<button class="button" id="boton1">Habilitar sonido</button>
+	</div>
+
+	<a-scene embedded arjs="debugUIEnabled: false; patternRatio: 0.90" vr-mode-ui="enabled: false">
+	  
+	  <video
+		  id="mivideo"
+		  type="video/mp4"
+		  style="opacity: 0;" 
+		  muted="false"
+		  webkit-playsinline
+		  autoplay
+		  playsinline
+		  controls
+		  crossorigin="anonymous"
+		  loop="true"
+		  src="./assets/media/mbe.mp4">
+	  </video>
+
+		<a-marker preset='custom' type='pattern' url='./assets/markers/playqrch.patt'>
+			<a-video material="shader: chromakey; src: #mivideo; color: 0.1 0.9 0.2" src="#mivideo" position="0 0 -0.5" scale="3 3 3" rotation="270 0 0" ></a-video> 	<!--https://github.com/nikolaiwarner/aframe-chromakey-material -->
+			<script> 
+				var m = document.querySelector("a-marker")
+				m.addEventListener("markerFound", (e)=>{
+					console.log("found")
+					var v = document.querySelector('#mivideo').play();
+				})
+			      
+				m.addEventListener("markerLost", (e)=>{
+					console.log("lost")
+					var v = document.querySelector('#mivideo').pause();
+				})
+
+				document.querySelector("button").addEventListener("click", (e)=>{
+					console.log("Activar Sonido")
+					var v = document.querySelector('#mivideo').muted=false;
+				})
+			</script>
+		</a-marker>
+	  <a-entity camera></a-entity>
+	</a-scene>
+</body>
+</html>
